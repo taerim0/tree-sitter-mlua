@@ -1,0 +1,44 @@
+@Component
+-- <- punctuation.special
+-- ^ attribute
+script Health extends Component
+-- <- keyword
+--     ^ type
+--            ^ keyword
+
+property boolean IsAlive = true
+-- <- keyword
+--       ^ type
+--               ^ property
+--                         ^ boolean
+
+member Server = 0
+-- <- keyword
+--     ^ constant
+--              ^ number
+
+constructor Health(number maxHp)
+-- <- keyword
+--          ^ constructor
+--                 ^ type
+--                        ^ variable.parameter
+end
+
+method void TakeDamage(number amount)
+-- <- keyword.function
+--     ^ type
+--          ^ function.method
+--                     ^ type
+--                            ^ variable.parameter
+self.hp = self.hp - amount
+-- <- variable.builtin
+--   ^ field
+--      ^ operator
+local total = 0
+-- <- keyword.function
+total = total + 1
+--    ^ operator
+return
+-- <- keyword.return
+end
+end
