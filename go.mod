@@ -1,4 +1,4 @@
-module github.com/tree-sitter-grammars/tree-sitter-lua
+module github.com/taerim0/tree-sitter-mlua
 
 go 1.22
 

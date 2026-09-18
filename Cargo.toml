@@ -1,13 +1,13 @@
 [package]
-name = "tree-sitter-lua"
-description = "Lua grammar for tree-sitter"
-version = "0.5.0"
-authors = ["Munif Tanjim <hello@muniftanjim.dev>"]
+name = "tree-sitter-mlua"
+description = "MapleStory Worlds .mlua grammar for tree-sitter"
+version = "0.1.0"
+authors = ["taerim0", "Munif Tanjim <hello@muniftanjim.dev>"]
 license = "MIT"
 readme = "README.md"
-keywords = ["incremental", "parsing", "tree-sitter", "lua"]
+keywords = ["incremental", "parsing", "tree-sitter", "mlua"]
 categories = ["parser-implementations", "parsing", "text-editors"]
-repository = "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+repository = "https://github.com/taerim0/tree-sitter-mlua"
 edition = "2021"
 autoexamples = false
 
@@ -18,7 +18,7 @@ include = [
   "queries/*",
   "src/*",
   "tree-sitter.json",
-  "/LICENSE",
+  "/LICENSE.md",
 ]
 
 [lib]

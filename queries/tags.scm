@@ -1,36 +1,32 @@
-(function_declaration
-  name: [
-    (identifier) @name
-    (dot_index_expression
-      field: (identifier) @name)
-  ]) @definition.function
+(script_declaration
+  name: (identifier) @name) @definition.class
 
-(function_declaration
-  name: (method_index_expression
-    method: (identifier) @name)) @definition.method
+(method_declaration
+  name: (identifier) @name) @definition.method
 
-(assignment_statement
-  (variable_list
-    .
-    name: [
-      (identifier) @name
-      (dot_index_expression
-        field: (identifier) @name)
-    ])
-  (expression_list
-    .
-    value: (function_definition))) @definition.function
+(constructor_declaration
+  name: (identifier) @name) @definition.method
 
-(table_constructor
-  (field
-    name: (identifier) @name
-    value: (function_definition))) @definition.function
+(operator_declaration
+  name: (identifier) @name) @definition.method
 
-(function_call
-  name: [
-    (identifier) @name
-    (dot_index_expression
-      field: (identifier) @name)
-    (method_index_expression
-      method: (identifier) @name)
-  ]) @reference.call
+(emitter_declaration
+  name: (identifier) @name) @definition.method
+
+(handler_declaration
+  name: (identifier) @name) @definition.method
+
+(function_definition_statement
+  name: (identifier) @name) @definition.function
+
+(local_function_definition_statement
+  name: (identifier) @name) @definition.function
+
+(property_declaration
+  name: (identifier) @name) @definition.property
+
+(member_declaration
+  name: (identifier) @name) @definition.constant
+
+(call
+  function: (variable name: (identifier) @name)) @reference.call

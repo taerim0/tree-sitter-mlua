@@ -1,4 +1,4 @@
-"""Lua grammar for tree-sitter"""
+"""MapleStory Worlds .mlua grammar for tree-sitter"""
 
 from importlib.resources import files as _files
 

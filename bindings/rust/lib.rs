@@ -1,17 +1,21 @@
-//! This crate provides Lua language support for the [tree-sitter] parsing library.
+//! This crate provides MapleStory Worlds .mlua language support for the [tree-sitter] parsing library.
 //!
 //! Typically, you will use the [`LANGUAGE`] constant to add this language to a
 //! tree-sitter [`Parser`], and then use the parser to parse some code:
 //!
 //! ```
 //! let code = r#"
-//! return 42
+//! script Foo
+//!     method number Answer()
+//!         return 42
+//!     end
+//! end
 //! "#;
 //! let mut parser = tree_sitter::Parser::new();
-//! let language = tree_sitter_lua::LANGUAGE;
+//! let language = tree_sitter_mlua::LANGUAGE;
 //! parser
 //!     .set_language(&language.into())
-//!     .expect("Error loading Lua parser");
+//!     .expect("Error loading mlua parser");
 //! let tree = parser.parse(code, None).unwrap();
 //! assert!(!tree.root_node().has_error());
 //! ```
@@ -22,11 +26,11 @@
 use tree_sitter_language::LanguageFn;
 
 extern "C" {
-    fn tree_sitter_lua() -> *const ();
+    fn tree_sitter_mlua() -> *const ();
 }
 
 /// The tree-sitter [`LanguageFn`] for this grammar.
-pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_lua) };
+pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_mlua) };
 
 /// The content of the [`node-types.json`] file for this grammar.
 ///
@@ -52,6 +56,6 @@ mod tests {
         let mut parser = tree_sitter::Parser::new();
         parser
             .set_language(&super::LANGUAGE.into())
-            .expect("Error loading Lua parser");
+            .expect("Error loading mlua parser");
     }
 }

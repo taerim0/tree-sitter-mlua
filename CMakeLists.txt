@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(tree-sitter-lua
-        VERSION "0.5.0"
-        DESCRIPTION "Lua grammar for tree-sitter"
-        HOMEPAGE_URL "https://github.com/tree-sitter-grammars/tree-sitter-lua"
+project(tree-sitter-mlua
+        VERSION "0.1.0"
+        DESCRIPTION "MapleStory Worlds .mlua grammar for tree-sitter"
+        HOMEPAGE_URL "https://github.com/taerim0/tree-sitter-mlua"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
@@ -34,42 +34,42 @@ add_custom_command(OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/src/parser.c"
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
                    COMMENT "Generating parser.c")
 
-add_library(tree-sitter-lua src/parser.c)
+add_library(tree-sitter-mlua src/parser.c)
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/src/scanner.c)
-  target_sources(tree-sitter-lua PRIVATE src/scanner.c)
+  target_sources(tree-sitter-mlua PRIVATE src/scanner.c)
 endif()
-target_include_directories(tree-sitter-lua
+target_include_directories(tree-sitter-mlua
                            PRIVATE src
                            INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/bindings/c>
                                      $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-target_compile_definitions(tree-sitter-lua PRIVATE
+target_compile_definitions(tree-sitter-mlua PRIVATE
                            $<$<BOOL:${TREE_SITTER_REUSE_ALLOCATOR}>:TREE_SITTER_REUSE_ALLOCATOR>
                            $<$<CONFIG:Debug>:TREE_SITTER_DEBUG>)
 
-set_target_properties(tree-sitter-lua
+set_target_properties(tree-sitter-mlua
                       PROPERTIES
                       C_STANDARD 11
                       POSITION_INDEPENDENT_CODE ON
                       SOVERSION "${TREE_SITTER_ABI_VERSION}.${PROJECT_VERSION_MAJOR}"
                       DEFINE_SYMBOL "")
 
-configure_file(bindings/c/tree-sitter-lua.pc.in
-               "${CMAKE_CURRENT_BINARY_DIR}/tree-sitter-lua.pc" @ONLY)
+configure_file(bindings/c/tree-sitter-mlua.pc.in
+               "${CMAKE_CURRENT_BINARY_DIR}/tree-sitter-mlua.pc" @ONLY)
 
 include(GNUInstallDirs)
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bindings/c/tree_sitter"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
         FILES_MATCHING PATTERN "*.h")
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tree-sitter-lua.pc"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tree-sitter-mlua.pc"
         DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig")
-install(TARGETS tree-sitter-lua
+install(TARGETS tree-sitter-mlua
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}")
 
 file(GLOB QUERIES queries/*.scm)
 install(FILES ${QUERIES}
-        DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/lua")
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/tree-sitter/queries/mlua")
 
 add_custom_target(ts-test "${TREE_SITTER_CLI}" test
                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"

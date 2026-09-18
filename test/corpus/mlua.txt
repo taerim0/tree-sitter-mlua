@@ -1,0 +1,230 @@
+================================================================================
+property declarations
+================================================================================
+
+script Vector2
+	property float x
+	property float y
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    name: (identifier)
+    (property_declaration
+      type: (type
+        name: (identifier))
+      name: (identifier))
+    (property_declaration
+      type: (type
+        name: (identifier))
+      name: (identifier))))
+
+================================================================================
+decorator, extends, and a method body referencing self
+================================================================================
+
+@Component
+script Health extends Component
+	method void TakeDamage(number amount)
+		self.hp = self.hp - amount
+	end
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    base: (type
+      name: (identifier))
+    (method_declaration
+      return_type: (type_list
+        (type
+          name: (identifier)))
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter_seq
+          (parameter
+            type: (type
+              name: (identifier))
+            name: (identifier))))
+      body: (block
+        (variable_assignment
+          (variable_list
+            (variable
+              table: (identifier)
+              field: (identifier)))
+          (expression_list
+            value: (binary_expression
+              left: (variable
+                table: (identifier)
+                field: (identifier))
+              right: (variable
+                name: (identifier)))))))))
+
+================================================================================
+constructor
+================================================================================
+
+script Vector2
+	constructor Vector2(float x, float y)
+		self.x = x
+		self.y = y
+	end
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    name: (identifier)
+    (constructor_declaration
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter_seq
+          (parameter
+            type: (type
+              name: (identifier))
+            name: (identifier))
+          (parameter
+            type: (type
+              name: (identifier))
+            name: (identifier))))
+      body: (block
+        (variable_assignment
+          (variable_list
+            (variable
+              table: (identifier)
+              field: (identifier)))
+          (expression_list
+            value: (variable
+              name: (identifier))))
+        (variable_assignment
+          (variable_list
+            (variable
+              table: (identifier)
+              field: (identifier)))
+          (expression_list
+            value: (variable
+              name: (identifier))))))))
+
+================================================================================
+enum members under a decorated, non-extending script
+================================================================================
+
+@Enum
+script UpdateAuthorityType
+	member Server = 0
+	member Client = 1
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    (decorator
+      name: (identifier))
+    name: (identifier)
+    (member_declaration
+      name: (identifier)
+      value: (number))
+    (member_declaration
+      name: (identifier)
+      value: (number))))
+
+================================================================================
+generic type parameters on the script name
+================================================================================
+
+script Dictionary<K, V>
+	method boolean Contains(K key) end
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    name: (identifier)
+    (type_parameters
+      parameter: (identifier)
+      parameter: (identifier))
+    (method_declaration
+      return_type: (type_list
+        (type
+          name: (identifier)))
+      name: (identifier)
+      parameters: (parameter_list
+        (parameter_seq
+          (parameter
+            type: (type
+              name: (identifier))
+            name: (identifier)))))))
+
+================================================================================
+compound assignment (.mlua extension over stock Lua)
+================================================================================
+
+script T
+	method void M()
+		local i = 0
+		i += 1
+	end
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    name: (identifier)
+    (method_declaration
+      return_type: (type_list
+        (type
+          name: (identifier)))
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (local_variable_declaration
+          (variable_list
+            (variable
+              name: (identifier)))
+          (expression_list
+            value: (number)))
+        (compound_assignment_statement
+          left: (variable
+            name: (identifier))
+          right: (number))))))
+
+================================================================================
+continue statement (.mlua extension over stock Lua)
+================================================================================
+
+script T
+	method void M()
+		for i = 1, 10 do
+			continue
+		end
+	end
+end
+
+--------------------------------------------------------------------------------
+
+(chunk
+  (script_declaration
+    name: (identifier)
+    (method_declaration
+      return_type: (type_list
+        (type
+          name: (identifier)))
+      name: (identifier)
+      parameters: (parameter_list)
+      body: (block
+        (for_numeric_statement
+          name: (identifier)
+          start: (number)
+          end: (number)
+          body: (block
+            (continue_statement)))))))

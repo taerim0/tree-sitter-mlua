@@ -1,204 +1,86 @@
 ; Keywords
-"return" @keyword.return
 
 [
-  "goto"
-  "in"
-  "local"
-  "global"
+  "script"
+  "extends"
+  "end"
+  "property"
+  "member"
+  "constructor"
+  "operator"
+  "static"
+  "readonly"
 ] @keyword
+
+["method" "emitter" "handler" "function" "local"] @keyword.function
+
+"return" @keyword.return
+
+[(break_statement) (continue_statement)] @keyword
+"goto" @keyword
 
 (label_statement) @label
 
-(break_statement) @keyword
+["if" "then" "elseif" "else"] @keyword.conditional
 
-(do_statement
-  [
-    "do"
-    "end"
-  ] @keyword)
+["while" "repeat" "until" "for" "in" "do"] @keyword.repeat
 
-(while_statement
-  [
-    "while"
-    "do"
-    "end"
-  ] @repeat)
+"@" @punctuation.special
 
-(repeat_statement
-  [
-    "repeat"
-    "until"
-  ] @repeat)
+; Types
 
-(if_statement
-  [
-    "if"
-    "elseif"
-    "else"
-    "then"
-    "end"
-  ] @conditional)
+(type name: (identifier) @type)
+(script_declaration name: (identifier) @type)
 
-(elseif_statement
-  [
-    "elseif"
-    "then"
-    "end"
-  ] @conditional)
+; Declarations
 
-(else_statement
-  [
-    "else"
-    "end"
-  ] @conditional)
+(decorator name: (identifier) @attribute)
+(property_declaration name: (identifier) @property)
+(member_declaration name: (identifier) @constant)
+(method_declaration name: (identifier) @function.method)
+(constructor_declaration name: (identifier) @constructor)
+(operator_declaration name: (identifier) @function.method)
+(emitter_declaration name: (identifier) @function.method)
+(handler_declaration name: (identifier) @function.method)
+(parameter name: (identifier) @variable.parameter)
 
-(for_statement
-  [
-    "for"
-    "do"
-    "end"
-  ] @repeat)
-
-(function_declaration
-  [
-    "function"
-    "end"
-  ] @keyword.function)
-
-(function_definition
-  [
-    "function"
-    "end"
-  ] @keyword.function)
-
-; Operators
-(binary_expression
-  operator: _ @operator)
-
-(unary_expression
-  operator: _ @operator)
-
-"=" @operator
-
-[
-  "and"
-  "not"
-  "or"
-] @keyword.operator
-
-; Punctuations
-[
-  ";"
-  ":"
-  ","
-  "."
-] @punctuation.delimiter
-
-; Brackets
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
+(call
+  function: (variable name: (identifier) @function.call))
+(call
+  function: (variable field: (identifier) @function.method.call))
 
 ; Variables
-(identifier) @variable
 
 ((identifier) @variable.builtin
   (#eq? @variable.builtin "self"))
 
-(variable_list
-  (attribute
-    "<" @punctuation.bracket
-    (identifier) @attribute
-    ">" @punctuation.bracket))
-
-; Constants
 ((identifier) @constant
   (#match? @constant "^[A-Z][A-Z_0-9]*$"))
 
-(vararg_expression) @constant
+(identifier) @variable
 
-(nil) @constant.builtin
-
-[
-  (false)
-  (true)
-] @boolean
-
-; Tables
-(field
-  name: (identifier) @field)
-
-(dot_index_expression
+(variable
   field: (identifier) @field)
 
-(table_constructor
-  [
-    "{"
-    "}"
-  ] @constructor)
+; Operators and punctuation
 
-; Functions
-(parameters
-  (identifier) @parameter)
+(binary_expression operator: _ @operator)
+(unary_expression operator: _ @operator)
+(compound_assignment_statement operator: _ @operator)
 
-(function_declaration
-  name: [
-    (identifier) @function
-    (dot_index_expression
-      field: (identifier) @function)
-  ])
+"=" @operator
 
-(function_declaration
-  name: (method_index_expression
-    method: (identifier) @method))
+["and" "or" "not"] @keyword.operator
 
-(assignment_statement
-  (variable_list
-    .
-    name: [
-      (identifier) @function
-      (dot_index_expression
-        field: (identifier) @function)
-    ])
-  (expression_list
-    .
-    value: (function_definition)))
+[";" ":" "," "." "::"] @punctuation.delimiter
 
-(table_constructor
-  (field
-    name: (identifier) @function
-    value: (function_definition)))
+["(" ")" "[" "]" "{" "}" "<" ">"] @punctuation.bracket
 
-(function_call
-  name: [
-    (identifier) @function.call
-    (dot_index_expression
-      field: (identifier) @function.call)
-    (method_index_expression
-      method: (identifier) @method.call)
-  ])
-
-(function_call
-  (identifier) @function.builtin
-  (#any-of? @function.builtin
-    ; built-in functions in Lua 5.1
-    "assert" "collectgarbage" "dofile" "error" "getfenv" "getmetatable" "ipairs" "load" "loadfile"
-    "loadstring" "module" "next" "pairs" "pcall" "print" "rawequal" "rawget" "rawset" "require"
-    "select" "setfenv" "setmetatable" "tonumber" "tostring" "type" "unpack" "xpcall"))
-
-; Others
-(comment) @comment
-
-(hash_bang_line) @preproc
+; Literals
 
 (number) @number
-
 (string) @string
-
-(escape_sequence) @string.escape
+(comment) @comment
+[(true) (false)] @boolean
+(nil) @constant.builtin
+(vararg_expression) @constant

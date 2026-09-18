@@ -1,12 +1,4 @@
-((function_call
-  name: [
-    (identifier) @_cdef_identifier
-    (_
-      _
-      (identifier) @_cdef_identifier)
-  ]
-  arguments: (arguments
-    (string
-      content: _ @injection.content
-      (#set! injection.language "c"))))
-  (#eq? @_cdef_identifier "cdef"))
+; No language injections are defined for .mlua yet -- MSW's mlua has no
+; FFI/cdef-style embedded-language convention the way LuaJIT does, which is
+; what the upstream tree-sitter-lua injections.scm this was forked from
+; existed for.

@@ -1,22 +1,28 @@
 {
-  "name": "@tree-sitter-grammars/tree-sitter-lua",
-  "version": "0.5.0",
-  "description": "Lua grammar for tree-sitter",
+  "name": "@taerim0/tree-sitter-mlua",
+  "version": "0.1.0",
+  "description": "MapleStory Worlds .mlua grammar for tree-sitter",
   "type": "module",
-  "repository": "https://github.com/tree-sitter-grammars/tree-sitter-lua",
+  "repository": "https://github.com/taerim0/tree-sitter-mlua",
   "license": "MIT",
   "author": {
-    "name": "Munif Tanjim",
-    "email": "hello@muniftanjim.dev",
-    "url": "https://muniftanjim.dev"
+    "name": "taerim0",
+    "url": "https://github.com/taerim0"
   },
+  "contributors": [
+    {
+      "name": "Munif Tanjim",
+      "email": "hello@muniftanjim.dev",
+      "url": "https://muniftanjim.dev"
+    }
+  ],
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [
     "incremental",
     "parsing",
     "tree-sitter",
-    "lua"
+    "mlua"
   ],
   "files": [
     "grammar.js",

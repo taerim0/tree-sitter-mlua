@@ -1,29 +1,32 @@
-# tree-sitter-lua
+# tree-sitter-mlua
 
-[![CI][ci]](https://github.com/tree-sitter-grammars/tree-sitter-lua/actions/workflows/ci.yml)
-[![discord][discord]](https://discord.gg/w7nTvsVJhm)
-[![matrix][matrix]](https://matrix.to/#/#tree-sitter-chat:matrix.org)
-[![npm][npm]](https://www.npmjs.com/package/%40tree-sitter-grammars%2Ftree-sitter-lua)
-[![crates][crates]](https://crates.io/crates/tree-sitter-lua)
+[![CI][ci]](https://github.com/taerim0/tree-sitter-mlua/actions/workflows/ci.yml)
 
-Lua grammar for tree-sitter.
+Tree-sitter grammar for **MapleStory Worlds' `.mlua` script/interface format**.
 
-- Lua 5.x
-- LuaJIT 2.x
+`.mlua` is a class-based DSL layered on top of a Lua-like expression/statement
+language: the top level is one `script Name [extends Base] ... end`
+declaration containing `property`/`method`/`member`/`emitter`/`handler`/
+`constructor`/`operator` members (each optionally preceded by `@Decorator`
+annotations), and method **bodies** are ordinary Lua statements/expressions.
+`.d.mlua` files (native-API declarations, no method bodies) parse with the
+same grammar.
 
-## References
-
-- [Lua Documentation](https://www.lua.org/docs.html)
+There was no public tree-sitter grammar for this format anywhere at the time
+this was written — confirmed by inspecting real MapleStory Worlds project
+`.mlua` files directly, not assumed from documentation alone.
 
 ## Acknowledgement
 
-The [external scanner](/src/scanner.c) was initially based on these repositories:
+This grammar is forked from [tree-sitter-grammars/tree-sitter-lua][ts-lua]
+(MIT licensed, by Munif Tanjim) — `.mlua` method bodies are real Lua, so the
+statement/expression/string/comment/number rules and the external scanner are
+reused near-verbatim from that project rather than re-derived from scratch.
+Only the top-level rules (`chunk`, `script`/`property`/`method`/`member`/
+`emitter`/`handler`/`constructor`/`operator` declarations, decorators, and the
+`type` rule for property/parameter/return types, including generics like
+`List<Vector2>`) are new.
 
-- [Azganoth/tree-sitter-lua](https://github.com/Azganoth/tree-sitter-lua)
-- [euclidianAce/tree-sitter-teal](https://github.com/euclidianAce/tree-sitter-teal)
+[ts-lua]: https://github.com/tree-sitter-grammars/tree-sitter-lua
 
-[ci]: https://img.shields.io/github/actions/workflow/status/tree-sitter-grammars/tree-sitter-lua/ci.yml?logo=github&label=CI
-[discord]: https://img.shields.io/discord/1063097320771698699?logo=discord&label=discord
-[matrix]: https://img.shields.io/matrix/tree-sitter-chat%3Amatrix.org?logo=matrix&label=matrix
-[npm]: https://img.shields.io/npm/v/%40tree-sitter-grammars%2Ftree-sitter-lua?logo=npm
-[crates]: https://img.shields.io/crates/v/tree-sitter-lua?logo=rust
+[ci]: https://img.shields.io/github/actions/workflow/status/taerim0/tree-sitter-mlua/ci.yml?logo=github&label=CI
