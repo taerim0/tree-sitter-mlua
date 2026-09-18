@@ -29,4 +29,5 @@
   name: (identifier) @name) @definition.constant
 
 (call
-  function: (variable name: (identifier) @name)) @reference.call
+  function: (variable
+    name: (identifier) @name)) @reference.call

@@ -21,7 +21,8 @@
 ; Definitions
 (local_variable_declaration
   (variable_list
-    (variable name: (identifier) @local.definition)))
+    (variable
+      name: (identifier) @local.definition)))
 
 (for_generic_statement
   left: (variable_list
